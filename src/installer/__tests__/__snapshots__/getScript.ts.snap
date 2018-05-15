@@ -6,6 +6,11 @@ exports[`hookScript should match snapshot (OS X/Linux) 1`] = `
 # v1.0.0-rc.6 darwin
 
 export HUSKY_GIT_PARAMS=\\"$*\\"
+
+if [ \\"$HUSKY_ONLY_RUN_ON_BRANCH\\" ] && [ \\"$(git rev-parse --abbrev-ref HEAD)\\" != \\"$HUSKY_ONLY_RUN_ON_BRANCH\\" ]; then
+  exit 0
+fi
+
 node_modules/run-node/run-node node_modules/husky/lib/runner/bin \`basename \\"$0\\"\`
 "
 `;
@@ -16,6 +21,11 @@ exports[`hookScript should match snapshot (Windows) 1`] = `
 # v1.0.0-rc.6 win32
 
 export HUSKY_GIT_PARAMS=\\"$*\\"
+
+if [ \\"$HUSKY_ONLY_RUN_ON_BRANCH\\" ] && [ \\"$(git rev-parse --abbrev-ref HEAD)\\" != \\"$HUSKY_ONLY_RUN_ON_BRANCH\\" ]; then
+  exit 0
+fi
+
 node node_modules/husky/lib/runner/bin \`basename \\"$0\\"\`
 "
 `;
